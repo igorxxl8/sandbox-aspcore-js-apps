@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Women's Day";
+}
+
+<div class="text-center align-content-center">
+    <div id="area"></div>
+    <div id="label"></div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(() => {
+            document.documentElement.style.setProperty('--elem-size', `${size}px`);
+            generateAllElements(s8marta, createOnMouseEnter, undefined, allReady);
+        })
+
+        const topS8marta = 500;
+        const leftS8marta = 20;
+        const size = 30;
+
+        const topSamyiuKrasivyiu = 100;
+        const leftSamyiuKrasivyiu = 20;
+
+
+        let samyiuKrasivyiu = [].concat(
+            s(topSamyiuKrasivyiu, leftSamyiuKrasivyiu, [1, 2]),
+            a(topSamyiuKrasivyiu, leftSamyiuKrasivyiu + 4 * size, [1, 2]),
+            m(topSamyiuKrasivyiu, leftSamyiuKrasivyiu + 8 * size, [1, 2]),
+            y(topSamyiuKrasivyiu, leftSamyiuKrasivyiu + 14 * size, [1, 2]),
+            iu(topSamyiuKrasivyiu, leftSamyiuKrasivyiu + 18 * size, [1, 2]),
+
+            k(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu, [3, 4]),
+            r(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 4 * size, [3, 4]),
+            a(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 8 * size, [3, 4]),
+            s(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 12 * size, [3, 4]),
+            i(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 16 * size, [3, 4]),
+            v(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 21 * size, [3, 4]),
+            y(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 25 * size, [3, 4]),
+            iu(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 29 * size, [3, 4])
+        );
+
+        let mama = [].concat(
+            m(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu, [1, 2]),
+            a(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 6 * size, [3, 4]),
+            m(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 10 * size, [1, 2]),
+            a(topSamyiuKrasivyiu + 6.5 * size, leftSamyiuKrasivyiu + 16 * size, [3, 4]),
+        );
+
+        let s8marta = [].concat(
+            s(topS8marta, leftS8marta, [1, 2]),
+            eight(topS8marta, leftS8marta + 5 * size, [1, 2]),
+            m(topS8marta, leftS8marta + 10 * size, [1, 2]),
+            a(topS8marta, leftS8marta + 16 * size, [3, 4]),
+            r(topS8marta, leftS8marta + 20 * size, [3, 4]),
+            t(topS8marta, leftS8marta + 24 * size, [3, 4]),
+            a(topS8marta, leftS8marta + 28 * size, [3, 4]),
+        );
+
+
+
+        function allReady() {
+            generateAllElements(samyiuKrasivyiu, createOnTimeEvent, { display: 'none' });
+            setTimeout(zoomOutMobile, 3000);
+        }
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Simple Flower";
+}
+
+<div class="text-center align-content-center">
+    <div id="area"></div>
+    <div id="label"></div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(() => {
+            document.documentElement.style.setProperty('--elem-size', `${size}px`);
+            generateAllElements(birdWithFlower, createOnTimeEvent, { display: 'none' });
+        });
+
+        const size = 30;
+        const topFlower = 200;
+        const leftFlower = 20;
+
+        const flowerColors = {
+            light: 'yellow',
+            medium: 'red',
+            dark: 'black'
+        };
+
+        const birdColors = {
+            light: 'yellow',
+            medium: 'red',
+            dark: 'black'
+        };
+
+        let birdWithFlower = [].concat(
+            line({
+                top: topFlower,
+                left: leftFlower,
+                //isVertical: true,
+                blockSize: size,
+                lineSize: 10,
+                rev: [1, 2],
+                colors: flowerColors
+            })
+            //flower(topFlower, leftFlower, [1, 2, 3, 4], flowerColors),
+            //bird(topFlower, leftFlower, [1, 2, 3, 4], birdColors)
+        );
+    </script>
+}

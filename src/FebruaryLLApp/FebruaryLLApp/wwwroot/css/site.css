@@ -1,0 +1,294 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+.btn-pretty {
+    margin: 40vh 10px 0 10px;
+    padding: 1.5rem 1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 50px;
+    transition: 0.5s;
+    background: #fff;
+    border: 2px solid #077284;
+    color: #077284;
+    transition: 0.25s;
+}
+
+.btn-pretty:focus{
+    outline: none;
+}
+
+    .btn-pretty:hover {
+        background: #077284;
+        color: #fff;
+    }
+
+.full-page {
+    height: 100vh;
+}
+
+.hidden-love {
+    display: none;
+}
+
+.love {
+    margin: 60vh 20px 0 5px;
+    background: white;
+    position:absolute;
+    border-radius:15px;
+}
+
+.heart {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border: solid 1px red;
+    border-top: none;
+    border-left: none;
+}
+
+    .heart:before, .heart:after {
+        position: absolute;
+        content: ' ';
+        -webkit-border-radius: 50px 0 0 50px; /* для Chrome и Safari */
+        -moz-border-radius: 50px 0 0 50px; /* для Firefox */
+        border-radius: 50px 0 0 50px;
+        width: 69px;
+        height: 100px;
+        border: solid 1px red;
+        border-right: none;
+    }
+
+.heart {
+    margin: 35vh 0 0 35vw;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    -webkit-transform: rotate(45deg); /* для Chrome и Safari */
+    -moz-transform: rotate(45deg); /* для Firefox */
+    -o-transform: rotate(45deg); /* для Opera */
+    transform: rotate(45deg);
+    border: solid 1px red;
+    border-top: none;
+    border-left: none;
+}
+
+    .heart:before, .heart:after {
+        position: absolute;
+        content: ' ';
+        -webkit-border-radius: 50px 0 0 50px;
+        -moz-border-radius: 50px 0 0 50px;
+        border-radius: 50px 0 0 50px;
+        width: 70px;
+        height: 100px;
+        border: solid 1px red;
+        border-right: none;
+        left: -70px;
+    }
+
+    .heart:after {
+        position: absolute;
+        left: 15px;
+        top: -85px;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+    }
+
+.heart {
+    background: red;
+    /* для браузеров, которые не поддерживают градиент */
+    background: -webkit-radial-gradient(115% 50%, 75px 110px, #8B0000, #8B0000, red);
+    /* для Chrome и Safari */
+    background: -moz-radial-gradient(170% 50%, circle, #8B0000 0%, #8B0000 52%, red 76%);
+    /* для Firefox */
+    background: -o-radial-gradient(115% 50%, 75px 110px, #8B0000, #8B0000, red);
+    /* для Opera */
+    background: radial-gradient(115% 50%, 75px 110px, #8B0000, #8B0000, red);
+    /* по стандартам CSS3 */
+}
+
+    .heart:before {
+        background: red;
+        background: -webkit-radial-gradient(15% 50%, 65px 65px, #FFE4E1, red);
+        background: -moz-radial-gradient(15% 50%, circle, #FFE4E1, red 85%);
+        background: -o-radial-gradient(15% 50%, 65% 65%, #FFE4E1, red);
+        background: radial-gradient(15% 50%, 65% 65%, #FFE4E1, red);
+    }
+
+    .heart:after {
+        background: red;
+        background: -webkit-radial-gradient(50% 80%, 85px 80px, #FFB6C1, red, #8B0000);
+        background: -moz-radial-gradient(50% 80%, circle, #FFB6C1, red, #8B0000 90%);
+        background: -o-radial-gradient(50% 80%, 85px 80px, #FFB6C1, red, #8B0000);
+        background: radial-gradient(50% 80%, 85px 80px, #FFB6C1, red, #8B0000);
+    }
+
+.heart {
+    animation-name: 'anime';
+    /* имя кейфрейма для анимации */
+    animation-duration: 300ms;
+    /* длительность анимации */
+    animation-iteration-count: infinite;
+    /* количество повторений, в данном случае - бесконечно */
+    animation-direction: alternate;
+    /* проигрывать анимацию в прямом и в обратном порядке */
+    animation-timing-function: ease-in;
+    /* вычисление временных промежутков для анимации, в данном случае анимация ускоряется */
+}
+
+@keyframes
+
+'anime' {
+    from
+
+{
+    transform: scale(1) rotate(45deg);
+}
+
+to {
+    transform: scale(1.1) rotate(45deg);
+}
+}
+
+.heart {
+    -webkit-animation-name: 'anime';
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in;
+}
+
+@-webkit-keyframes 'anime' {
+    from {
+    -webkit-transform: scale(1) rotate(45deg);
+    }
+
+    to {
+        -webkit-transform: scale(1.1) rotate(45deg);
+    }
+}
+
+#area {
+    display:flex;
+    flex-wrap:wrap;
+}
+
+.element {
+    content: ' ';
+    height: var(--elem-size);
+    width: var(--elem-size);
+    margin: 3px;
+}
+
+    .element.rev-1 {
+        clip-path: polygon(var(--elem-size) 0, 0 var(--elem-size), 0 0);
+    }
+
+    .element.rev-2 {
+        clip-path: polygon(0px var(--elem-size), var(--elem-size) var(--elem-size), var(--elem-size) 0);
+    }
+
+    .element.rev-3 {
+        clip-path: polygon(var(--elem-size) 0, var(--elem-size) var(--elem-size), 0 0);
+    }
+
+    .element.rev-4 {
+        clip-path: polygon(0 0, var(--elem-size) var(--elem-size), 0 var(--elem-size));
+    }
+
+.element:hover{
+    background: black!important;
+}
+
+:root {
+    --elem-size: 21px;
+}
+
+#toWomensDay {
+    margin: 35vh 0 0 23vw;
+    position: absolute;
+    z-index: 1;
+    font-size: 40px;
+}
+
+a:hover {
+    text-decoration: none!important;
+}
+
+#toWomensDay {
+    -webkit-animation-name: 'anime';
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in;
+}
