@@ -17,33 +17,111 @@ function bird(topStart, leftStart, rev, colors) {
     ];
 }
 
-function primitive(top, left, rev, color) {
-    return { top: top, left: left, rev: rev, color: color };
-}
-
-function line(data) {
+function primitive(data, useArray = []) {
     let top = data.top,
         left = data.left,
-        isVertical = data.isVertical,
+        rev = data.rev,
+        color = data.color;
+
+    let element = { top: top, left: left, rev: rev, color: color };
+    useArray.push(element);
+
+    return element;
+}
+
+function block(data, useArray = []) {
+    let top = data.top,
+        left = data.left,
+        rev = data.rev,
+        colors = data.colors;
+
+    primitive({ top: top, left: left, rev: rev[0], color: colors.light }, useArray),
+    primitive({ top: top, left: left, rev: rev[1], color: colors.light }, useArray)
+
+    return useArray;
+}
+
+function rightTriangle(data, useArray = []) {
+    let top = data.top,
+        left = data.left,
+        triangleSize = data.triangleSize,
+        triangleRev = data.triangleRev,
         blockSize = data.blockSize,
         rev = data.rev,
         colors = data.colors,
-        arr = [];
+        movingX = blockSize,
+        movingY = blockSize;
 
-    for (i = 0, j = data.lineSize; i < j; i++) {
-        arr.push(
-            primitive(top, left, rev[0], colors.light),
-            primitive(top, left, rev[1], colors.light)
-        );
-
-        if (isVertical) {
-            top += blockSize;
-        } else {
-            left += blockSize;
-        }
+    let primitiveRev = rev[triangleRev - 1];
+    switch (triangleRev) {
+        case 1: {
+            top += (triangleSize - 1) * blockSize;
+            movingX = -blockSize;
+        } break;
+        case 2: {
+            //top += (triangleSize - 1) * blockSize;
+            //left += (triangleSize - 1) * blockSize;
+            //movingY = movingX = -blockSize;
+        } break;
+        case 3: {
+            
+        } break;
     }
 
-    return arr;
+    for (let i = 0, j = triangleSize; i < j; i++) {
+        line({
+            top: top,
+            left: left,
+            lineRev: primitiveRev,
+            blockSize: blockSize,
+            rev: rev,
+            lineSize: i,
+            colors: colors
+        }, useArray);
+        primitive({ top: top, left: left + i * movingY, rev:primitiveRev, color: colors.light}, useArray);
+        top += movingX;
+    }
+    return useArray;
+}
+
+function line(data, useArray = []) {
+    let top = data.top,
+        left = data.left,
+        blockSize = data.blockSize,
+        lineSize = data.lineSize,
+        lineRev = data.rev,
+        rev = data.rev,
+        colors = data.colors,
+        movingX = blockSize,
+        movingY = 0;
+
+    switch (lineRev) {
+        case 1: {
+            movingX = 0;
+            movingY = blockSize;
+        } break;
+        case 2: {
+            movingX = -blockSize;
+            movingY = 0;
+        } break;
+        case 3: {
+            movingX = 0;
+            movingY = -blockSize;
+        } break;
+        default: {
+            movingX = blockSize,
+            movingY = 0;
+        } break;
+    }
+
+    for (let i = 0, j = lineSize; i < j; i++) {
+        block({ top: top, left: left, rev: rev, colors: colors }, useArray);
+
+        top += movingY;
+        left += movingX;
+    }
+
+    return useArray;
 }
 
 
@@ -379,6 +457,10 @@ function createOnTimeEvent(elem) {
     setTimeout(moveElement, 2000, selector);
 }
 
+function simpleMoveEvent(elem) {
+    moveElement(`#${$(elem).attr('id')}`);
+}
+
 function createOnMouseEnter(elem, onReady) {
     let selector = `#${$(elem).attr('id')}`;
     $(selector).mouseenter((e) => {
@@ -404,11 +486,11 @@ function moveElement(selector) {
 }
 
 function generateElement(data, index, css) {
-    let color = data !== undefined && data.color !== undefined 
-                    ? data.color :
-                      css !== undefined && css.color 
-                    ? css.color : 
-                        "#" + ('00000' + (Math.random() * (1 << 24) | 0).toString(16)).slice(-6);
+    let color = data !== undefined && data.color !== undefined
+        ? data.color :
+        css !== undefined && css.color
+            ? css.color :
+            "#" + ('00000' + (Math.random() * (1 << 24) | 0).toString(16)).slice(-6);
     return $(`<div id=e-${index} class='element rev-${index % 4 + 1}' data-rev=${data.rev} data-top=${data.top} data-left=${data.left} style='background: ${color}; ${css !== undefined ? "display:" + css.display : ""}'></div>`);
 }
 

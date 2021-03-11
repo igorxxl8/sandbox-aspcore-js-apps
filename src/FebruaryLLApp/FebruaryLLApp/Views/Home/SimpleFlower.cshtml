@@ -11,7 +11,7 @@
     <script type="text/javascript">
         $(document).ready(() => {
             document.documentElement.style.setProperty('--elem-size', `${size}px`);
-            generateAllElements(birdWithFlower, createOnTimeEvent, { display: 'none' });
+            generateAllElements(birdWithFlower, simpleMoveEvent, { display: 'none' });
         });
 
         const size = 30;
@@ -31,15 +31,45 @@
         };
 
         let birdWithFlower = [].concat(
-            line({
+            rightTriangle({
                 top: topFlower,
                 left: leftFlower,
-                //isVertical: true,
                 blockSize: size,
-                lineSize: 10,
-                rev: [1, 2],
+                triangleSize: 3,
+                triangleRev: 1,
+                rev: [1, 2, 3, 4],
                 colors: flowerColors
-            })
+            }),
+
+            rightTriangle({
+                top: topFlower,
+                left: leftFlower + 4 * size,
+                blockSize: size,
+                triangleSize: 3,
+                triangleRev: 2,
+                rev: [1, 2, 3, 4],
+                colors: flowerColors
+            }),
+
+            rightTriangle({
+                top: topFlower,
+                left: leftFlower + 8 * size,
+                blockSize: size,
+                triangleSize: 3,
+                triangleRev: 3,
+                rev: [1, 2, 3, 4],
+                colors: flowerColors
+            }),
+
+            rightTriangle({
+                top: topFlower,
+                left: leftFlower + 12 * size,
+                blockSize: size,
+                triangleSize: 3,
+                triangleRev: 4,
+                rev: [1, 2, 3, 4],
+                colors: flowerColors
+            }),
             //flower(topFlower, leftFlower, [1, 2, 3, 4], flowerColors),
             //bird(topFlower, leftFlower, [1, 2, 3, 4], birdColors)
         );
