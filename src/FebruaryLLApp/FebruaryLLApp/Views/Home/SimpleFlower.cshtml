@@ -11,7 +11,7 @@
     <script type="text/javascript">
         $(document).ready(() => {
             document.documentElement.style.setProperty('--elem-size', `${size}px`);
-            generateAllElements(birdWithFlower, simpleMoveEvent, { display: 'none' });
+            generateAllElements(fromPattern, simpleMoveEvent, { display: 'none' });
         });
 
         const size = 30;
@@ -30,7 +30,23 @@
             dark: 'black'
         };
 
-        let birdWithFlower = [].concat(
+        const pattern = [
+            [2, 2, 2],
+            [2, 0, 0],
+            [2, 0, 0],
+            [2, 2, 2]
+        ]
+
+        let fromPattern = usePattern(pattern,
+            {
+                top: topFlower,
+                left: leftFlower,
+                rev: Direction.All,
+                //color: birdColors,
+                size: size
+            });
+
+        let triangles = [].concat(
             rightTriangle({
                 top: topFlower,
                 left: leftFlower,

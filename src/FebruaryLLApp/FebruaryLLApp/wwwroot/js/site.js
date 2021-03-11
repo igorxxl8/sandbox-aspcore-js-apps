@@ -11,6 +11,36 @@ const Direction = {
     All: [1, 2, 3, 4]
 }
 
+const FigureType = {
+    Blank: 0,
+    Primitive: 1,
+    Block: 2
+}
+
+function usePattern(pattern, style, useArray = []) {
+    let size = style.size,
+        top = style.top,
+        left = style.left,
+        rev = style.rev,
+        color = style.color
+    
+    for (let i in pattern) {
+        for (let k in pattern[i]) {
+            switch (pattern[i][k]) {
+                case FigureType.Primitive:
+                    primitive({ top: top + i * size, left: left + k * size, rev: rev[0], colors: color }, useArray);
+                    break;
+
+                case FigureType.Block:
+                    block({ top: top + i * size, left: left + k * size, rev: rev, colors: color }, useArray);
+                    break;
+            }
+        }
+    }
+
+    return useArray;
+}
+
 function primitive(data, useArray = []) {
     let element = {
         top: data.top,
@@ -29,8 +59,8 @@ function block(data, useArray = []) {
         rev = data.rev,
         colors = data.colors;
 
-    primitive({ top: top, left: left, rev: rev[0], color: colors.light }, useArray),
-    primitive({ top: top, left: left, rev: rev[1], color: colors.light }, useArray)
+    primitive({ top: top, left: left, rev: rev[0], color: colors !== undefined? colors.light: undefined }, useArray),
+    primitive({ top: top, left: left, rev: rev[1], color: colors !== undefined? colors.light: undefined }, useArray)
 
     return useArray;
 }
@@ -145,322 +175,6 @@ function line(data, useArray = []) {
     }
 
     return useArray;
-}
-
-
-function s(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] }
-    ];
-}
-
-function iu(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 4 * size, rev: rev[1] }
-    ];
-}
-
-function m(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 4 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 4 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 4 * size, rev: rev[1] }
-    ];
-}
-
-function a(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] }
-    ];
-}
-
-function r(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] }
-    ];
-}
-
-function t(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[0] }
-    ];
-}
-
-function y(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] }
-    ];
-}
-
-function eight(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] }
-    ];
-}
-
-function k(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] }
-    ];
-}
-
-function i(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 3 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 3 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 3 * size, rev: rev[1] }
-    ];
-}
-
-function v(topStart, leftStart, rev) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0] },
-        { top: topStart, left: leftStart, rev: rev[1] },
-        { top: topStart, left: leftStart + size, rev: rev[0] },
-        { top: topStart, left: leftStart + size, rev: rev[1] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + size, left: leftStart, rev: rev[0] },
-        { top: topStart + size, left: leftStart, rev: rev[1] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 2 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 3 * size, left: leftStart + 2 * size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + size, rev: rev[1] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[0] },
-        { top: topStart + 4 * size, left: leftStart + 2 * size, rev: rev[1] }
-    ];
 }
 
 function generateAllElements(word, eventCreator, css, onReady) {
