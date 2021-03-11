@@ -3,6 +3,14 @@
 
 // Write your JavaScript code.
 
+let Direction = {
+    ToRight: 1,
+    ToLeft: 2,
+    ToBottom: 3,
+    ToTop: 4,
+    All: [1, 2, 3, 4]
+}
+
 function flower(topStart, leftStart, rev, colors) {
     return [
         { top: topStart, left: leftStart, rev: rev[0], color: colors.light },
@@ -54,9 +62,9 @@ function rightTriangle(data, useArray = []) {
         koefPrimitiveMovingX = 0,
         koefPrimitiveMovingY = 0;
 
-    let primitiveRev = rev[triangleRev - 1];
     switch (triangleRev) {
         case 1: {
+            // to right
             top += (triangleSize - 1) * blockSize;
             lineMovingX = -blockSize;
             lineMovingY = 0;
@@ -64,6 +72,7 @@ function rightTriangle(data, useArray = []) {
             koefPrimitiveMovingY = 0;
         } break;
         case 2: {
+            // to left
             left += (triangleSize - 1) * blockSize;
             lineMovingY = 0;
             lineMovingX = blockSize;
@@ -71,33 +80,40 @@ function rightTriangle(data, useArray = []) {
             koefPrimitiveMovingY = 0;
         } break;
         case 3: {
+            // to bottom
             lineMovingY = blockSize;
             lineMovingX = 0;
             koefPrimitiveMovingX = 0;
             koefPrimitiveMovingY = 1;
         } break;
         default: {
+            // to top
             top += (triangleSize - 1) * blockSize;
             left += (triangleSize - 1) * blockSize;
             lineMovingX = 0;
             lineMovingY = -blockSize;
             koefPrimitiveMovingX = 0;
             koefPrimitiveMovingY = -1;
-        } break;
+        }
     }
 
     for (let i = 0, j = triangleSize; i < j; i++) {
         line({
             top: top,
             left: left,
-            lineRev: primitiveRev,
+            lineRev: triangleRev,
             blockSize: blockSize,
             rev: rev,
             lineSize: i,
             colors: colors
         }, useArray);
 
-        primitive({ top: top + i * koefPrimitiveMovingY * blockSize, left: left + i * koefPrimitiveMovingX * blockSize, rev: primitiveRev, color: colors.light }, useArray);
+        primitive({
+            top: top + i * koefPrimitiveMovingY * blockSize,
+            left: left + i * koefPrimitiveMovingX * blockSize,
+            rev: triangleRev,
+            color: colors.light
+        }, useArray);
 
         top += lineMovingX;
         left += lineMovingY;
@@ -114,18 +130,18 @@ function line(data, useArray = []) {
         rev = data.rev,
         colors = data.colors,
         movingX = blockSize,
-        movingY = 0;
+        movingY = 0;    
 
     switch (lineRev) {
-        case 1: {
+        case Direction.ToRight: {
             movingX = blockSize;
             movingY = 0;
         } break;
-        case 2: {
+        case Direction.ToLeft: {
             movingX = -blockSize;
             movingY = 0;
         } break;
-        case 3: {
+        case Direction.ToBottom: {
             movingX = 0;
             movingY = blockSize;
         } break;

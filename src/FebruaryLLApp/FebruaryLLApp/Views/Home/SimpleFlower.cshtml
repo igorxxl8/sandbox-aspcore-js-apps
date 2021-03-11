@@ -36,8 +36,8 @@
                 left: leftFlower,
                 blockSize: size,
                 triangleSize: 3,
-                triangleRev: 1,
-                rev: [1, 2, 3, 4],
+                triangleRev: Direction.ToRight,
+                rev: Direction.All,
                 colors: flowerColors
             }),
 
@@ -46,8 +46,8 @@
                 left: leftFlower + 4 * size,
                 blockSize: size,
                 triangleSize: 3,
-                triangleRev: 2,
-                rev: [1, 2, 3, 4],
+                triangleRev: Direction.ToLeft,
+                rev: Direction.All,
                 colors: flowerColors
             }),
 
@@ -56,8 +56,8 @@
                 left: leftFlower + 8 * size,
                 blockSize: size,
                 triangleSize: 3,
-                triangleRev: 3,
-                rev: [1, 2, 3, 4],
+                triangleRev: Direction.ToBottom,
+                rev: Direction.All,
                 colors: flowerColors
             }),
 
@@ -66,8 +66,8 @@
                 left: leftFlower + 12 * size,
                 blockSize: size,
                 triangleSize: 3,
-                triangleRev: 4,
-                rev: [1, 2, 3, 4],
+                triangleRev: Direction.ToTop,
+                rev: Direction.All,
                 colors: flowerColors
             }),
             //flower(topFlower, leftFlower, [1, 2, 3, 4], flowerColors),
