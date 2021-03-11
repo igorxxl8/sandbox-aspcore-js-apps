@@ -3,7 +3,7 @@
 
 // Write your JavaScript code.
 
-let Direction = {
+const Direction = {
     ToRight: 1,
     ToLeft: 2,
     ToBottom: 3,
@@ -11,27 +11,13 @@ let Direction = {
     All: [1, 2, 3, 4]
 }
 
-function flower(topStart, leftStart, rev, colors) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0], color: colors.light },
-        { top: topStart, left: leftStart, rev: rev[0], color: colors.medium },
-        { top: topStart, left: leftStart, rev: rev[0], color: colors.dark },
-    ];
-}
-
-function bird(topStart, leftStart, rev, colors) {
-    return [
-        { top: topStart, left: leftStart, rev: rev[0], color: colors.light },
-    ];
-}
-
 function primitive(data, useArray = []) {
-    let top = data.top,
-        left = data.left,
-        rev = data.rev,
-        color = data.color;
-
-    let element = { top: top, left: left, rev: rev, color: color };
+    let element = {
+        top: data.top,
+        left: data.left,
+        rev: data.rev,
+        color: data.color
+    };
     useArray.push(element);
 
     return element;
