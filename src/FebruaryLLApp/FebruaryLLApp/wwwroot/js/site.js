@@ -49,22 +49,40 @@ function rightTriangle(data, useArray = []) {
         blockSize = data.blockSize,
         rev = data.rev,
         colors = data.colors,
-        movingX = blockSize,
-        movingY = blockSize;
+        lineMovingX = blockSize,
+        lineMovingY = blockSize,
+        koefPrimitiveMovingX = 0,
+        koefPrimitiveMovingY = 0;
 
     let primitiveRev = rev[triangleRev - 1];
     switch (triangleRev) {
         case 1: {
             top += (triangleSize - 1) * blockSize;
-            movingX = -blockSize;
+            lineMovingX = -blockSize;
+            lineMovingY = 0;
+            koefPrimitiveMovingX = 1;
+            koefPrimitiveMovingY = 0;
         } break;
         case 2: {
-            //top += (triangleSize - 1) * blockSize;
-            //left += (triangleSize - 1) * blockSize;
-            //movingY = movingX = -blockSize;
+            left += (triangleSize - 1) * blockSize;
+            lineMovingY = 0;
+            lineMovingX = blockSize;
+            koefPrimitiveMovingX = -1;
+            koefPrimitiveMovingY = 0;
         } break;
         case 3: {
-            
+            lineMovingY = blockSize;
+            lineMovingX = 0;
+            koefPrimitiveMovingX = 0;
+            koefPrimitiveMovingY = 1;
+        } break;
+        default: {
+            top += (triangleSize - 1) * blockSize;
+            left += (triangleSize - 1) * blockSize;
+            lineMovingX = 0;
+            lineMovingY = -blockSize;
+            koefPrimitiveMovingX = 0;
+            koefPrimitiveMovingY = -1;
         } break;
     }
 
@@ -78,8 +96,11 @@ function rightTriangle(data, useArray = []) {
             lineSize: i,
             colors: colors
         }, useArray);
-        primitive({ top: top, left: left + i * movingY, rev:primitiveRev, color: colors.light}, useArray);
-        top += movingX;
+
+        primitive({ top: top + i * koefPrimitiveMovingY * blockSize, left: left + i * koefPrimitiveMovingX * blockSize, rev: primitiveRev, color: colors.light }, useArray);
+
+        top += lineMovingX;
+        left += lineMovingY;
     }
     return useArray;
 }
@@ -89,7 +110,7 @@ function line(data, useArray = []) {
         left = data.left,
         blockSize = data.blockSize,
         lineSize = data.lineSize,
-        lineRev = data.rev,
+        lineRev = data.lineRev,
         rev = data.rev,
         colors = data.colors,
         movingX = blockSize,
@@ -97,8 +118,8 @@ function line(data, useArray = []) {
 
     switch (lineRev) {
         case 1: {
-            movingX = 0;
-            movingY = blockSize;
+            movingX = blockSize;
+            movingY = 0;
         } break;
         case 2: {
             movingX = -blockSize;
@@ -106,11 +127,11 @@ function line(data, useArray = []) {
         } break;
         case 3: {
             movingX = 0;
-            movingY = -blockSize;
+            movingY = blockSize;
         } break;
         default: {
-            movingX = blockSize,
-            movingY = 0;
+            movingX = 0,
+            movingY = -blockSize;
         } break;
     }
 
